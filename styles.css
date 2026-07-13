@@ -34,6 +34,17 @@ main {
   flex: 1;
 }
 
+div .panel-grid h2,
+div .panel-grid p {
+  color: #f2f0ec;
+}
+
+section.container .gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
 .eyebrow {
   font-family: var(--font-heading);
   font-size: 0.8rem;
@@ -47,6 +58,24 @@ main {
   font-size: 1.125rem;
   max-width: 42rem;
   text-wrap: pretty;
+}
+
+.section-head h2,
+.section-head p {
+  color: #f2f0ec;
+}
+
+article.facet h3,
+article.facet p {
+  color: #f2f0ec;
+}
+
+.hobby-body h2 {
+  color: #f2f0ec;
+}
+
+.dream-copy h2 {
+  color: #f2f0ec;
 }
 
 /* ---- Buttons & links ------------------------------------ */
