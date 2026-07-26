@@ -1,8 +1,7 @@
 /* Jeff Victorino
-07/05/2026
+07/05/2026 
 Module 6.3 Assignment */
 
-/* ---- Design variables -------------------------------------- */
 :root {
   --background: #1c1a17;
   --foreground: #f2f0ec;
@@ -22,7 +21,53 @@ Module 6.3 Assignment */
   --max-width: 72rem;
 }
 
-/* ---- Layout helpers ------------------------------------- */
+/*  Reset  */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+/*  Layout helpers  */
 .container {
   width: 100%;
   max-width: var(--max-width);
@@ -30,19 +75,14 @@ Module 6.3 Assignment */
   padding-inline: 1.25rem;
 }
 
+@media (min-width: 768px) {
+  .container {
+    padding-inline: 2rem;
+  }
+}
+
 main {
   flex: 1;
-}
-
-div .panel-grid h2,
-div .panel-grid p {
-  color: #f2f0ec;
-}
-
-section.container .gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
 }
 
 .eyebrow {
@@ -60,34 +100,55 @@ section.container .gallery {
   text-wrap: pretty;
 }
 
-.section-head h2,
-.section-head p {
-  color: #f2f0ec;
+/*  Buttons & links  */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  transition:
+    opacity 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+  cursor: pointer;
 }
-
-article.facet h3,
-article.facet p {
-  color: #f2f0ec;
-}
-
-.hobby-body h2 {
-  color: #f2f0ec;
-}
-
-.dream-copy h2 {
-  color: #f2f0ec;
-}
-
-/* ---- Buttons & links ------------------------------------ */
 
 .btn-primary {
   background-color: var(--primary);
   color: var(--primary-foreground);
 }
 
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
 .btn-outline {
   border-color: var(--border);
   color: var(--foreground);
+}
+
+.btn-outline:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  color: var(--muted-foreground);
+  transition: color 0.2s ease;
+}
+
+.text-link:hover {
+  color: var(--primary);
 }
 
 .text-link.on-dark {
@@ -100,7 +161,7 @@ article.facet p {
   line-height: 1;
 }
 
-/* ---- Header / Nav --------------------------------------- */
+/*  Header / Nav  */
 .site-header {
   position: sticky;
   top: 0;
@@ -147,6 +208,26 @@ article.facet p {
   list-style: none;
 }
 
+.nav-links a {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  color: var(--muted-foreground);
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: var(--foreground);
+}
+
+.nav-links a[aria-current="page"] {
+  background-color: var(--secondary);
+  color: var(--foreground);
+}
+
 .nav-links .nav-cta {
   margin-left: 0.5rem;
   background-color: var(--primary);
@@ -154,12 +235,57 @@ article.facet p {
   font-weight: 500;
 }
 
-/* ---- Hero ----------------------------------------------- */
+.nav-links .nav-cta:hover {
+  color: var(--primary-foreground);
+  opacity: 0.9;
+}
+
+/* On small screens the nav wraps neatly instead of using JS */
+@media (max-width: 640px) {
+  .nav {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+  .nav-links {
+    flex-wrap: wrap;
+  }
+}
+
+/*  Hero  */
+.hero {
+  padding-block: 3.5rem 4rem;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    padding-block: 5rem 6rem;
+  }
+}
 
 .hero-grid {
   display: grid;
   gap: 2.5rem;
   align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 1.05fr 0.95fr;
+  }
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 8vw, 4.5rem);
+  margin-top: 1.25rem;
+}
+
+.hero p {
+  margin-top: 1.5rem;
+  color: var(--muted-foreground);
+  font-size: 1.125rem;
+  max-width: 34rem;
+  text-wrap: pretty;
 }
 
 .hero-actions {
@@ -173,6 +299,19 @@ article.facet p {
   position: relative;
 }
 
+.hero-figure .framed {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+}
+
+.hero-figure .framed img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .stat-badge {
   position: absolute;
   bottom: -1rem;
@@ -183,12 +322,25 @@ article.facet p {
   padding: 1rem 1.25rem;
 }
 
+.stat-badge .num {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
 .stat-badge .label {
   font-size: 0.875rem;
   color: var(--muted-foreground);
 }
 
-/* ---- Facets (feature grid) ------------------------------ */
+@media (max-width: 640px) {
+  .stat-badge {
+    display: none;
+  }
+}
+
+/*  Facets (feature grid)  */
 .band {
   border-block: 1px solid var(--border-soft);
   background-color: var(--card);
@@ -198,11 +350,43 @@ article.facet p {
   padding-block: 4rem;
 }
 
+@media (min-width: 768px) {
+  .section {
+    padding-block: 5rem;
+  }
+}
+
+.section-head {
+  max-width: 40rem;
+}
+
+.section-head h2 {
+  font-size: clamp(1.875rem, 4vw, 2.5rem);
+}
+
+.section-head p {
+  margin-top: 1rem;
+  color: var(--muted-foreground);
+  text-wrap: pretty;
+}
+
 .card-grid {
   display: grid;
   gap: 1rem;
   margin-top: 2.5rem;
   grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 .facet {
@@ -211,6 +395,10 @@ article.facet p {
   border-radius: var(--radius);
   padding: 1.5rem;
   transition: border-color 0.2s ease;
+}
+
+.facet:hover {
+  border-color: rgba(232, 132, 60, 0.5);
 }
 
 .facet .icon {
@@ -229,13 +417,28 @@ article.facet p {
   height: 1.25rem;
 }
 
-/* ---- Gallery -------------------------------------------- */
+.facet h3 {
+  margin-top: 1rem;
+  font-size: 1.125rem;
+}
+
+.facet p {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--muted-foreground);
+}
+
+/*  Gallery  */
 .gallery-head {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
   justify-content: space-between;
   gap: 1rem;
+}
+
+.gallery-head h2 {
+  font-size: clamp(1.875rem, 4vw, 2.5rem);
 }
 
 .gallery {
@@ -245,6 +448,25 @@ article.facet p {
   grid-template-columns: 1fr;
 }
 
+@media (min-width: 640px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .gallery {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.gallery figure {
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  aspect-ratio: 1 / 1;
+}
+
 .gallery figure img {
   width: 100%;
   height: 100%;
@@ -252,7 +474,26 @@ article.facet p {
   transition: transform 0.5s ease;
 }
 
-/* ---- CTA panel ------------------------------------------ */
+.gallery figure:hover img {
+  transform: scale(1.05);
+}
+
+/* First tile spans wide/tall on larger screens */
+@media (min-width: 640px) {
+  .gallery .feature {
+    grid-column: span 2;
+    aspect-ratio: 2 / 1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gallery .feature {
+    grid-row: span 2;
+    aspect-ratio: auto;
+  }
+}
+
+/*  CTA panel  */
 .panel {
   overflow: hidden;
   border-radius: 1rem;
@@ -267,15 +508,50 @@ article.facet p {
   padding: 2rem;
 }
 
+@media (min-width: 768px) {
+  .panel-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 3rem;
+  }
+}
+
+.panel h2 {
+  font-size: clamp(1.875rem, 4vw, 2.5rem);
+}
+
+.panel p {
+  margin-top: 1rem;
+  max-width: 28rem;
+  color: var(--muted-foreground);
+  text-wrap: pretty;
+}
+
+.panel .btn {
+  margin-top: 1.75rem;
+}
+
+.panel-figure {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
 .panel-figure img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* ---- About page ----------------------------------------- */
+/*  About page  */
 .page-head {
   padding-block: 3.5rem 3rem;
+}
+
+@media (min-width: 768px) {
+  .page-head {
+    padding-block: 5rem 3rem;
+  }
 }
 
 .page-head h1 {
@@ -284,13 +560,44 @@ article.facet p {
   max-width: 48rem;
 }
 
+.page-head p {
+  margin-top: 1.5rem;
+}
+
 .about-grid {
   display: grid;
   gap: 2.5rem;
 }
 
+@media (min-width: 1024px) {
+  .about-grid {
+    grid-template-columns: 0.9fr 1.1fr;
+    align-items: start;
+  }
+}
+
 .about-aside {
   position: static;
+}
+
+@media (min-width: 1024px) {
+  .about-aside {
+    position: sticky;
+    top: 6rem;
+  }
+}
+
+.about-aside .framed {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+}
+
+.about-aside .framed img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .stat-grid {
@@ -326,6 +633,10 @@ article.facet p {
   color: var(--muted-foreground);
 }
 
+.article p + p {
+  margin-top: 1.5rem;
+}
+
 .pullquote {
   margin-block: 2rem;
   border-left: 2px solid var(--primary);
@@ -342,13 +653,25 @@ article.facet p {
   color: var(--foreground);
 }
 
+.article-figure {
+  margin-block: 2rem;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
 .article-figure img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* ---- Hobbies page --------------------------------------- */
+.article .btn {
+  margin-top: 2rem;
+}
+
+/*  Hobbies page  */
 .hobby-list {
   display: flex;
   flex-direction: column;
@@ -364,9 +687,17 @@ article.facet p {
   background-color: var(--card);
 }
 
+@media (min-width: 768px) {
+  .hobby {
+    grid-template-columns: repeat(2, 1fr);
+    align-items: stretch;
+  }
+}
+
 .hobby-img {
   min-height: 16rem;
   overflow: hidden;
+  /* max-height: 500px; */
 }
 
 .hobby-img img {
@@ -380,6 +711,16 @@ article.facet p {
   flex-direction: column;
   justify-content: center;
   padding: 1.75rem;
+}
+
+@media (min-width: 768px) {
+  .hobby-body {
+    padding: 2.5rem;
+  }
+  /* alternate image side */
+  .hobby.reverse .hobby-img {
+    order: 2;
+  }
 }
 
 .hobby-body .tag {
@@ -401,12 +742,27 @@ article.facet p {
   text-wrap: pretty;
 }
 
+.hobby-body .text-link {
+  margin-top: 1.25rem;
+}
+
 /* dream highlight */
 .dream {
   overflow: hidden;
   border-radius: 1rem;
   border: 1px solid var(--border);
   position: relative;
+}
+
+.dream-media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+}
+
+@media (min-width: 768px) {
+  .dream-media {
+    aspect-ratio: 21 / 9;
+  }
 }
 
 .dream-media img {
@@ -435,6 +791,12 @@ article.facet p {
   z-index: 1;
 }
 
+@media (min-width: 768px) {
+  .dream-copy {
+    padding: 3rem;
+  }
+}
+
 .dream-copy .tag {
   font-family: var(--font-heading);
   font-size: 0.75rem;
@@ -460,7 +822,7 @@ article.facet p {
   margin-top: 1.25rem;
 }
 
-/* ---- Footer --------------------------------------------- */
+/*  Footer */
 .site-footer {
   border-top: 1px solid var(--border-soft);
   background-color: var(--card);
@@ -471,6 +833,14 @@ article.facet p {
   flex-direction: column;
   gap: 2.5rem;
   padding-block: 3.5rem 0;
+}
+
+@media (min-width: 768px) {
+  .footer-top {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
 }
 
 .footer-brand {
@@ -514,8 +884,33 @@ article.facet p {
   color: var(--muted-foreground);
 }
 
+@media (min-width: 640px) {
+  .footer-bottom {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
 .footer-nav {
   display: flex;
   gap: 1.25rem;
   font-family: var(--font-heading);
+}
+
+.footer-nav a:hover {
+  color: var(--foreground);
+}
+
+/*  Utilities  */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
